@@ -98,9 +98,22 @@ def main():
                         key=lambda x: (current[x]["first_seen"], current[x]["stock"]))
 
     breakdown = "  ".join("%s:%d" % (g, gen_counts[g]) for g in sorted(gen_counts, key=gen_key))
+    hr = "-" * 64
 
-    print("=== RG Pick-A-Part -- BMW 3 Series watch -- %s ===" % now)
-    print("In stock now: %d   [%s]" % (len(current), breakdown))
+    def row(v, tag=""):
+        return "  %-6s %-10s Row %-5s first seen %s%s" % (
+            v["year"], v["stock"], v["row"], v.get("first_seen", "?"), tag)
+
+    def header(title):
+        print("\n" + hr)
+        print(title)
+        print(hr)
+
+    print("=" * 64)
+    print(" RG Pick-A-Part -- BMW 3 Series Watch")
+    print(" %s" % now)
+    print("=" * 64)
+    print("In stock: %d total   |  %s" % (len(current), breakdown))
 
     # Machine markers consumed by the scheduled task to decide the phone push.
     # Exactly one push fires per run: F30 priority > new-by-gen > plain status.
@@ -115,34 +128,28 @@ def main():
               % (len(current), breakdown, len(mygen_keys), gone_note))
 
     if new_keys:
-        print("\nNEW since last check: %d" % len(new_keys))
+        header("NEW SINCE LAST CHECK (%d)" % len(new_keys))
         for k in new_keys:
             v = current[k]
-            tag = ("  <== %s (YOUR GEN)" % MY_GEN) if v["gen"] == MY_GEN else ("  [%s]" % v["gen"])
-            print("  + %s 3 SERIES | %s | Row %s | first seen %s%s"
-                  % (v["year"], v["stock"], v["row"], v["first_seen"], tag))
+            tag = "  <== YOUR GEN" if v["gen"] == MY_GEN else "  [%s]" % v["gen"]
+            print(row(v, tag))
     else:
-        print("\nNo new arrivals.")
+        print("\nNew arrivals: none")
 
     if gone_keys:
-        print("\nRemoved/crushed since last check: %d" % len(gone_keys))
+        header("REMOVED / CRUSHED SINCE LAST CHECK (%d)" % len(gone_keys))
         for k in gone_keys:
             v = prev[k]
-            print("  - %s 3 SERIES [%s] | %s | Row %s | was first seen %s"
-                  % (v.get("year"), v.get("gen", "?"), v.get("stock"), v.get("row"),
-                     v.get("first_seen", "?")))
+            print(row(v, "  [%s]" % v.get("gen", "?")))
 
-    print("\n*** %s generation (YOUR car) in stock now: %d ***" % (MY_GEN, len(mygen_keys)))
+    header("YOUR GENERATION -- %s (%d in stock)" % (MY_GEN, len(mygen_keys)))
     for k in mygen_keys:
-        v = current[k]
-        print("  * %s 3 SERIES | %s | Row %s | first seen %s"
-              % (v["year"], v["stock"], v["row"], v["first_seen"]))
+        print(row(current[k]))
 
-    print("\nFull current list, grouped by generation:")
+    header("FULL INVENTORY (%d)" % len(current))
     for k in sorted(current, key=lambda x: (gen_key(current[x]["gen"]), current[x]["stock"])):
         v = current[k]
-        print("  [%s] %s 3 SERIES | %s | Row %s | first seen %s"
-              % (v["gen"], v["year"], v["stock"], v["row"], v["first_seen"]))
+        print(row(v, "  [%s]" % v["gen"]))
 
     with open(SNAP, "w") as f:
         json.dump({"updated": now, "count": len(current), "vehicles": current}, f, indent=2)
