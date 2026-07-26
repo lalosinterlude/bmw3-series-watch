@@ -1,23 +1,7 @@
 {
-  "updated": "2026-07-25 14:01",
-  "count": 19,
+  "updated": "2026-07-26 14:01",
+  "count": 17,
   "vehicles": {
-    "STK59251": {
-      "year": "2011",
-      "model": "3 SERIES",
-      "stock": "STK59251",
-      "row": "48",
-      "first_seen": "2026-06-28",
-      "gen": "E90"
-    },
-    "STK63203": {
-      "year": "2007",
-      "model": "3 SERIES",
-      "stock": "STK63203",
-      "row": "49",
-      "first_seen": "2026-06-28",
-      "gen": "E90"
-    },
     "STK63218": {
       "year": "2016",
       "model": "3 SERIES",
