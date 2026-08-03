@@ -1,6 +1,6 @@
 {
-  "updated": "2026-08-02 14:02",
-  "count": 19,
+  "updated": "2026-08-03 14:03",
+  "count": 18,
   "vehicles": {
     "STK63218": {
       "year": "2016",
@@ -9,14 +9,6 @@
       "row": "41",
       "first_seen": "2026-07-11",
       "gen": "F30"
-    },
-    "STK63288": {
-      "year": "2011",
-      "model": "3 SERIES",
-      "stock": "STK63288",
-      "row": "52",
-      "first_seen": "2026-06-28",
-      "gen": "E90"
     },
     "STK63352": {
       "year": "2018",
