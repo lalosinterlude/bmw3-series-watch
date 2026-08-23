@@ -1,6 +1,6 @@
 {
-  "updated": "2026-08-22 14:01",
-  "count": 18,
+  "updated": "2026-08-23 14:01",
+  "count": 20,
   "vehicles": {
     "STK63218": {
       "year": "2016",
@@ -18,27 +18,11 @@
       "first_seen": "2026-06-28",
       "gen": "F30"
     },
-    "STK63441": {
-      "year": "2007",
-      "model": "3 SERIES",
-      "stock": "STK63441",
-      "row": "59",
-      "first_seen": "2026-06-28",
-      "gen": "E90"
-    },
     "STK63460": {
       "year": "2014",
       "model": "3 SERIES",
       "stock": "STK63460",
       "row": "215",
-      "first_seen": "2026-06-28",
-      "gen": "F30"
-    },
-    "STK63471": {
-      "year": "2015",
-      "model": "3 SERIES",
-      "stock": "STK63471",
-      "row": "60",
       "first_seen": "2026-06-28",
       "gen": "F30"
     },
@@ -145,6 +129,38 @@
       "row": "50",
       "first_seen": "2026-08-02",
       "gen": "E46"
+    },
+    "STK65239": {
+      "year": "2016",
+      "model": "3 SERIES",
+      "stock": "STK65239",
+      "row": "208",
+      "first_seen": "2026-08-23",
+      "gen": "F30"
+    },
+    "STK65242": {
+      "year": "2017",
+      "model": "3 SERIES",
+      "stock": "STK65242",
+      "row": "208",
+      "first_seen": "2026-08-23",
+      "gen": "F30"
+    },
+    "STK65274": {
+      "year": "2008",
+      "model": "3 SERIES",
+      "stock": "STK65274",
+      "row": "59",
+      "first_seen": "2026-08-23",
+      "gen": "E90"
+    },
+    "STK65285": {
+      "year": "2008",
+      "model": "3 SERIES",
+      "stock": "STK65285",
+      "row": "60",
+      "first_seen": "2026-08-23",
+      "gen": "E90"
     }
   }
 }
