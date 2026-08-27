@@ -1,6 +1,6 @@
 {
-  "updated": "2026-08-25 14:03",
-  "count": 20,
+  "updated": "2026-08-27 14:03",
+  "count": 18,
   "vehicles": {
     "STK63218": {
       "year": "2016",
@@ -129,22 +129,6 @@
       "row": "50",
       "first_seen": "2026-08-02",
       "gen": "E46"
-    },
-    "STK65239": {
-      "year": "2016",
-      "model": "3 SERIES",
-      "stock": "STK65239",
-      "row": "208",
-      "first_seen": "2026-08-23",
-      "gen": "F30"
-    },
-    "STK65242": {
-      "year": "2017",
-      "model": "3 SERIES",
-      "stock": "STK65242",
-      "row": "208",
-      "first_seen": "2026-08-23",
-      "gen": "F30"
     },
     "STK65274": {
       "year": "2008",
