@@ -8,7 +8,7 @@ numbers (STKxxxxx) are unique per vehicle and roughly chronological, so a stock
 number not seen before = a newly intook car.
 """
 import urllib.request, re, json, os, sys
-from datetime import datetime
+from datetime import datetime, timedelta
 from collections import Counter
 
 URL = "https://www.rgpick-a-part.com/inventory.php"
@@ -26,6 +26,7 @@ GENERATIONS = [
     (2012, 2018, "F30"),   # F30/F31/F34 -- the user's car
     (2019, 9999, "G20"),   # G20/G21 and later
 ]
+WINDOW_DAYS = 7  # "new this week" = first seen within the last 7 days (incl. today)
 MY_GEN = "F30"  # generation the user owns -> highest-priority alert
 GEN_ORDER = [g[2] for g in GENERATIONS] + ["?"]
 
@@ -115,27 +116,40 @@ def main():
     print("=" * 64)
     print("In stock: %d total   |  %s" % (len(current), breakdown))
 
+    # "New this week": cars first seen within the rolling window, grouped by day.
+    days = [(datetime.now() - timedelta(days=i)).strftime("%Y-%m-%d")
+            for i in range(WINDOW_DAYS - 1, -1, -1)]
+    week_keys = sorted((k for k in current if current[k]["first_seen"] in days),
+                       key=lambda x: (current[x]["first_seen"], gen_key(current[x]["gen"]), x))
+    week_by_gen = Counter(current[k]["gen"] for k in week_keys)
+    week_mygen = [k for k in week_keys if current[k]["gen"] == MY_GEN]
+    wk_gens = ", ".join("%d %s" % (week_by_gen[g], g) for g in sorted(week_by_gen, key=gen_key))
+    first_day, last_day = days[0], days[-1]
+
     # Machine markers consumed by the scheduled task to decide the phone push.
-    # Exactly one push fires per run: F30 priority > new-by-gen > plain status.
-    if new_mygen:
-        print("\nPUSH_PRIORITY_F30: %d new %s (your generation)!" % (len(new_mygen), MY_GEN))
-    if new_keys:
-        print("PUSH_NEW_BY_GEN: " + ", ".join(
-            "%s=%d" % (g, new_by_gen[g]) for g in sorted(new_by_gen, key=gen_key)))
+    # Exactly one push fires per run: new-this-week F30 > new-this-week other > status.
+    if week_mygen:
+        print("\nPUSH_PRIORITY_F30: %d new %s this week (your generation): %s" % (
+            len(week_mygen), MY_GEN,
+            "; ".join("%s %s Row %s (seen %s)" % (current[k]["year"], k, current[k]["row"],
+                                                   current[k]["first_seen"]) for k in week_mygen)))
+    if week_keys:
+        print("PUSH_NEW_BY_GEN: %d new this week (%s..%s) -- %s; %d new today" % (
+            len(week_keys), first_day, last_day, wk_gens, len(new_keys)))
     else:
         gone_note = (", %d removed since last check" % len(gone_keys)) if gone_keys else ""
-        print("\nPUSH_STATUS: %d 3-series in stock [%s] -- F30(yours)=%d, no new arrivals%s"
+        print("\nPUSH_STATUS: nothing new this week; %d 3-series in stock [%s] -- F30(yours)=%d%s"
               % (len(current), breakdown, len(mygen_keys), gone_note))
 
-    if new_keys:
-        header("NEW SINCE LAST CHECK (%d)" % len(new_keys))
-        for k in new_keys:
+    header("NEW THIS WEEK (%s .. %s): %d" % (first_day, last_day, len(week_keys)))
+    for d in reversed(days):
+        day_keys = [k for k in week_keys if current[k]["first_seen"] == d]
+        label = datetime.strptime(d, "%Y-%m-%d").strftime("%a %b %d")
+        print("%s%s  (%d)" % (label, " (today)" if d == today else "", len(day_keys)))
+        for k in day_keys:
             v = current[k]
-            tag = "  <== YOUR GEN" if v["gen"] == MY_GEN else "  [%s]" % v["gen"]
-            print(row(v, tag))
-    else:
-        print("\nNew arrivals: none")
-
+            print("    %-6s %-10s Row %-5s %s" % (v["year"], v["stock"], v["row"],
+                  "<== YOUR GEN" if v["gen"] == MY_GEN else "[%s]" % v["gen"]))
     if gone_keys:
         header("REMOVED / CRUSHED SINCE LAST CHECK (%d)" % len(gone_keys))
         for k in gone_keys:
