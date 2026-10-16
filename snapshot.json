@@ -1,6 +1,6 @@
 {
-  "updated": "2026-10-15 14:04",
-  "count": 16,
+  "updated": "2026-10-16 14:04",
+  "count": 17,
   "vehicles": {
     "STK63218": {
       "year": "2016",
@@ -17,14 +17,6 @@
       "row": "215",
       "first_seen": "2026-06-28",
       "gen": "F30"
-    },
-    "STK64011": {
-      "year": "2009",
-      "model": "3 SERIES",
-      "stock": "STK64011",
-      "row": "83",
-      "first_seen": "2026-06-28",
-      "gen": "E90"
     },
     "STK64086": {
       "year": "2011",
@@ -129,6 +121,22 @@
       "row": "60",
       "first_seen": "2026-08-23",
       "gen": "E90"
+    },
+    "STK65830": {
+      "year": "2000",
+      "model": "3 SERIES",
+      "stock": "STK65830",
+      "row": "81",
+      "first_seen": "2026-10-16",
+      "gen": "E46"
+    },
+    "STK65831": {
+      "year": "2015",
+      "model": "3 SERIES",
+      "stock": "STK65831",
+      "row": "208",
+      "first_seen": "2026-10-16",
+      "gen": "F30"
     }
   }
 }
