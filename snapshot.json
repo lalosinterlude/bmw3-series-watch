@@ -1,7 +1,15 @@
 {
-  "updated": "2026-11-06 14:47",
-  "count": 16,
+  "updated": "2026-11-07 14:47",
+  "count": 17,
   "vehicles": {
+    "STK58122": {
+      "year": "2013",
+      "model": "3 SERIES",
+      "stock": "STK58122",
+      "row": "201",
+      "first_seen": "2026-11-07",
+      "gen": "F30"
+    },
     "STK63218": {
       "year": "2016",
       "model": "3 SERIES",
