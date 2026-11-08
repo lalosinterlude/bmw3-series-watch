@@ -1,7 +1,15 @@
 {
-  "updated": "2026-11-06 14:47",
+  "updated": "2026-11-08 14:46",
   "count": 16,
   "vehicles": {
+    "STK58122": {
+      "year": "2013",
+      "model": "3 SERIES",
+      "stock": "STK58122",
+      "row": "201",
+      "first_seen": "2026-11-08",
+      "gen": "F30"
+    },
     "STK63218": {
       "year": "2016",
       "model": "3 SERIES",
@@ -10,21 +18,13 @@
       "first_seen": "2026-07-11",
       "gen": "F30"
     },
-    "STK64137": {
+    "STK63460": {
       "year": "2014",
       "model": "3 SERIES",
-      "stock": "STK64137",
-      "row": "22",
-      "first_seen": "2026-06-28",
+      "stock": "STK63460",
+      "row": "21",
+      "first_seen": "2026-11-08",
       "gen": "F30"
-    },
-    "STK64220": {
-      "year": "2006",
-      "model": "3 SERIES",
-      "stock": "STK64220",
-      "row": "20",
-      "first_seen": "2026-06-28",
-      "gen": "E90"
     },
     "STK64365": {
       "year": "2011",
